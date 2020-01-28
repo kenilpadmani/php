@@ -3,8 +3,8 @@
 session_start();
 
 
-function getValue($section, $fieldName) {
-    return isset($_POST[$section][$fieldName]) ? $_POST[$section][$fieldName] : getValueForSession($section, $fieldName); 
+function getValue($section, $fieldName, $returnType ="") {
+    return isset($_POST[$section][$fieldName]) ? $_POST[$section][$fieldName] : getValueForSession($section, $fieldName, $returnType); 
 }
 
 if(isset($_POST["submit"])) {
@@ -26,21 +26,33 @@ if(isset($_POST["submit"])) {
 }
 
 
-function getValueForSession($section, $fieldName) {
+function getValueForSession($section, $fieldName, $returnType) {
     return isset($_SESSION[$section][$fieldName]) 
         ? $_SESSION[$section][$fieldName] 
-        : "";
+        : $returnType;
 }
 
 function checkValueOfDropdown($value, $section, $fieldName) {
-    return $selectd = in_array($value, [getValue($section, $fieldName)]) 
+    return $selectd = in_array($value, [getValue($section, $fieldName,[])]) 
                                     ? 'selected = "selected"'
                                     : "";
 }
 
+function checkMultipleValueOfDropdown($value, $section, $fieldName) {
+    return $selected = array_intersect([$value], getValue($section, $fieldName,[])) ? 'selected': "";
+}
+
+
+
 function checkValueForCheckboxAndRadio($value, $section, $fieldName) {
-    return $selectd = in_array($value, [getValue($section, $fieldName)]) 
+    return $selectd = in_array($value, [getValue($section, $fieldName,[])]) 
                                     ? 'checked = "checked"'
+                                    : "";
+}
+
+function checkMultipleValueForCheckboxAndRadio($value, $section, $fieldName) {
+    return $selectd = array_intersect([$value], getValue($section, $fieldName,[])) 
+                                    ? 'checked'
                                     : "";
 }
 

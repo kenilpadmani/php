@@ -158,18 +158,18 @@ require_once 'validation_store.php';
                     <?php $likeGetTouchData = 
                     ['Post', 'Email', 'SMS', 'Phone'];?>
                     <?php foreach($likeGetTouchData as $key => $value):?>
-                        <input type="checkbox" name="otherinformation[likegettouch]" value="<?php echo $value;?>"
-                            <?php echo checkValueForCheckboxAndRadio($value, 'otherinformation', 'likegettouch'); ?>>
+                        <input type="checkbox" name="otherinformation[likegettouch][]" value="<?php echo $value;?>"
+                            <?php echo checkMultipleValueForCheckboxAndRadio($value, 'otherinformation', 'likegettouch',[]); ?>>
                             <?php echo $value;?>
                     <?php endforeach ?>
                 </div>
                 <div class="data-hobbies">
                     <label>Hobbies</label>
                     <?php $hobbiesData = ['Listening to Music', 'Travelling', 'Blogging ', 'Sports', 'Art'];?>
-                    <select name="otherinformation[hobbies]" multiple>
+                    <select name="otherinformation[hobbies][]" multiple>
                         <?php foreach($hobbiesData as $key => $value):?>
                             <option value="<?php echo $value;?>"
-                                <?php echo checkValueOfDropdown($value, 'otherinformation', 'hobbies');?>>
+                                <?php echo checkMultipleValueOfDropdown($value, 'otherinformation', 'hobbies',[]);?>>
                             <?php echo $value;?>
                             </option>
                         <?php endforeach?>
