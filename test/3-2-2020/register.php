@@ -26,13 +26,13 @@
                 </div>
                 <div class="data-firstname">
                     <label>Firstname</label>
-                    <input type="text" name="register[First Name]" 
-                    value="<?php echo getValue('register', 'First Name')?>">
+                    <input type="text" name="register[FirstName]" 
+                    value="<?php echo getValue('register', 'FirstName');?>">
                 </div>
                 <div class="data-lastname">
                     <label>Lastname</label>
-                    <input type="text" name="register[Last Name]" 
-                    value="<?php echo getValue('register', 'Last Name');?>">
+                    <input type="text" name="register[LastName]" 
+                    value="<?php echo getValue('register', 'LastName');?>">
                 </div>
                 <div class="data-email">
                     <label>Email</label>
@@ -46,8 +46,8 @@
                 </div>
                 <div class="data-password">
                     <label>Password</label>
-                    <input type="text" name="register[Password Hash]"
-                        value="<?php echo getValue('register', 'Password Hash');?>">
+                    <input type="text" name="register[PasswordHash]"
+                        value="<?php echo getValue('register', 'PasswordHash');?>">
                 </div>
                 <div class="data-confirmpassword">
                     <label>Confirm Password</label>
@@ -55,7 +55,7 @@
                         value="">
                 </div>
                 <div class="data-information">
-                    <label>Information</label>
+                    <label>information</label>
                     <textarea rows="5" cols="20" name="register[Information]"></textarea>
                 </div>
                 <div>

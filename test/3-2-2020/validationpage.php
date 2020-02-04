@@ -3,18 +3,17 @@
 session_start();
 
 require_once "connectionfile.php";
-echo "connection successfully";
 
-function getValue($section, $fieldName) {
-    return isset($_POST[$section][$fieldName]) ? $_POST[$section][$fieldName] : "";
+function getValue($section, $fieldname) {
+    return isset($_POST[$section][$fieldname]) ? $_POST[$section][$fieldname] : "";
 }
 
-function setSession($section, $fieldName) {
-    return isset($_POST[$section][$fieldName]) ? ($_SESSION[$section][$fieldName] = $_POST[$section][$fieldName]) : [];
+function setSession($section) {
+    return $_SESSION[$section] = $_POST[$section];
 }
 
-function getSession($section, $fieldName) {
-    return isset($_SESSION[$section][$fieldName]) ? $_SESSION[$section][$fieldName] : "";
+function getSession($section) {
+    return isset($_SESSION[$section]) ? $_SESSION[$section] : "";
 }
 
 function dataSameAsSqlStroe($section) {
@@ -28,15 +27,17 @@ function dataSameAsSqlStroe($section) {
     if (empty($errorMessage)) {
         $data = [];
         if($section == 'register') {
+            
+            $data['CreatedAt'] = date('D:M:Y h:i:s', time());
             foreach($_POST[$section] as $key => $value) {
                 switch($key) {
                     case 'Prefix':
                         $data[$key] = $value;
                     break;
-                    case 'First Name':
+                    case 'FirstName':
                         $data[$key] = $value;
                     break;
-                    case 'Last Name':
+                    case 'LastName':
                         $data[$key] = $value;
                     break;
                     case 'Mobile':
@@ -45,7 +46,7 @@ function dataSameAsSqlStroe($section) {
                     case 'Email':
                         $data[$key] = $value;
                     break;
-                    case 'Password Hash':
+                    case 'PasswordHash':
                         $data[$key] = $value;
                     break;
                     case 'Information':
@@ -55,6 +56,74 @@ function dataSameAsSqlStroe($section) {
             }
             if(isset($_POST['submit'])) {
                 echo insertData('user', $data);
+                header('Location: login.php');
+            }
+        } 
+        if($section == 'addnewcategory') {
+
+            $id = lastId('ParentCategoryId', 'parentcategory');
+            $maxId = $id['MAX(ParentCategoryId)'];
+            $data['ParentCategoryId'] = $maxId;
+            $data['CreatedAt'] = date('D:M:Y h:i:s', time());
+            foreach($_POST[$section] as $key => $value) {
+                switch($key) {
+                    case 'Title':
+                        $data[$key] = $value;
+                    break;
+                    case 'MetaTitle':
+                        $data[$key] = $value;
+                    break;
+                    case 'Url':
+                        $data[$key] = $value;
+                    break;
+                    case 'Content':
+                        $data[$key] = $value;
+                    break;
+                    case 'categoryName':
+                        $insertquery = "INSERT INTO parentcategory($key) VALUES('$value')";
+                        echo (mysqli_query(openConnection(), $insertquery)) ? "Record enter successfully" : "error";
+                    break;
+                }
+            }
+            if(isset($_POST['update']) && isset($_GET['edit'])) {
+                $id = array_search('edit', $_GET['edit']);
+                update($id, 'category', $data);
+            }
+            if(isset($_POST['submit'])) {
+                echo insertData('category', $data);
+            }
+        }
+        if($section == 'addnewblog') {
+
+            $array = lastId('id' ,'user');
+            $maxId = $array['MAX(id)'];
+            $data['id'] = $maxId;
+            $data['CreatedAt'] = date('D:M:Y h:i:s', time());
+            foreach($_POST[$section] as $key => $value) {
+                switch($key) {
+                    case 'Title':
+                        $data[$key] = $value;
+                    break;
+                    case 'PublishedAt':
+                        $data[$key] = $value;
+                    break;
+                    case 'Url':
+                        $data[$key] = $value;
+                    break;
+                    case 'Content':
+                        $data[$key] = $value;
+                    break;
+                    case 'Image':
+                        $data[$key] = $value;
+                    break;
+                }
+            }
+            if(isset($_POST['update']) && isset($_GET['edit'])) {
+                $id = array_search('edit', $_GET['edit']);
+                update($id, 'blogpost', $data);
+            }
+            if(isset($_POST['submit'])) {
+                echo insertData('blogpost', $data);
             }
         }
     }
@@ -65,8 +134,8 @@ function dataSameAsSqlStroe($section) {
 
 function validation($key, $value) {
     switch($key) {
-        case 'First Name':
-        case 'Last Name':
+        case 'FirstName':
+        case 'LastName':
             return preg_match('/^[a-zA-Z]+$/', $value) ? true : false;
         break;
         case 'Email':
@@ -75,20 +144,42 @@ function validation($key, $value) {
         case 'Mobile':
             return preg_match('/^[0-9]{10}$/', $value) ? true : false;
         break;
-        case 'Password Hash':
-            return preg_match('/^[a-zA-Z-0-9]*$/', $value) ? true : false;
+        case 'PasswordHash':
+        case 'confirmpassword':
+            return preg_match('/^[a-zA-Z-0-9]*\w*[a-zA-Z-0-9]$/', $value) ? $value : false;
         break;
         default:
             return true;
     break;
     }
 }
-echo "<pre>";
-print_r($_POST);
-echo "</pre>";
-echo "<br>";
+
+
+function fetchCategoryName() {
+    $select = "SELECT categoryName FROM parentcategory";
+    $result = mysqli_query(openConnection(), $select);
+    while($rows = mysqli_fetch_assoc($result)) {
+    echo "<option value= $rows[categoryName]>".$rows['categoryName'];
+    echo "</option>";
+    }
+} 
+
 if(isset($_POST['register'])) {
-    echo dataSameAsSqlStroe('register');
+    dataSameAsSqlStroe('register');
+}
+
+if(isset($_POST['addnewcategory'])) {
+    dataSameAsSqlStroe('addnewcategory');
+}
+if(isset($_POST['addnewblog'])) {
+    dataSameAsSqlStroe('addnewblog');
+}
+
+if(isset($_GET['delete'])) {
+    $id = array_search('delete', $_GET['delete']);
+    deleteData($id, 'parentcategory');
+    deleteData($id, 'category');
+    deleteData($id, 'blogpost');
 }
 
 ?>

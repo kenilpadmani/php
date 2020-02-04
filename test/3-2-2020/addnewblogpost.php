@@ -9,7 +9,7 @@
     require_once "validationpage.php";
 
     ?>
-        <form>
+        <form method="POST">
             <fieldset>
                 <legend>
                     Add New Blog Post
@@ -20,7 +20,7 @@
                 </div>
                 <div>
                     <label>Content</label>
-                    <textarea rows="5" cols="15" name="addnewblog[content]"></textarea>
+                    <textarea rows="5" cols="15" name="addnewblog[Content]"></textarea>
                 </div>
                 <div>
                     <label>URL</label>
@@ -28,11 +28,13 @@
                 </div>
                 <div>
                     <label>Published At</label>
-                    <input type="text" name="addnewblog[Published]">
+                    <input type="date" name="addnewblog[PublishedAt]">
                 </div>
                 <div>
                     <label>Category</label>
-                    <textarea rows="5" cols="15" name="addnewblog[Category]"></textarea>
+                    <select name="addnewblog[Category]" multiple>
+                    <?php fetchCategoryName();?>
+                    </select>
                 </div>
                 <div>
                     <label>Image</label>
@@ -41,5 +43,14 @@
                 <input type="submit" name="submit">
             </fieldset>
         </form>
+
+
+    <?php 
+    
+    if(isset($_POST['submit'])) {
+        header('Location: blogpost.php');
+    }
+
+    ?>
     </body>
 </html>
