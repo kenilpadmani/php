@@ -7,9 +7,9 @@
     <?php 
     
     require_once "validationpage.php";
-
+    require_once "connectionfile.php";
     ?>
-        <form method="POST">
+        <form method="POST" enctype="multipart/form-data">
             <fieldset>
                 <legend>
                     Add New Blog Post
@@ -30,6 +30,7 @@
                     <label>Published At</label>
                     <input type="date" name="addnewblog[PublishedAt]">
                 </div>
+                
                 <div>
                     <label>Category</label>
                     <select name="addnewblog[Category]" multiple>
@@ -37,9 +38,10 @@
                     </select>
                 </div>
                 <div>
-                    <label>Image</label>
-                    <input type="file" name="addnewblog[image]">
+                <label>Image</label>
+                    <input type="file" name="Imagename">
                 </div>
+                    
                 <input type="submit" name="submit">
             </fieldset>
         </form>
@@ -47,9 +49,9 @@
 
     <?php 
     
-    if(isset($_POST['submit'])) {
-        header('Location: blogpost.php');
-    }
+    // if(isset($_POST['submit'])) {
+    //     
+    // }
 
     ?>
     </body>

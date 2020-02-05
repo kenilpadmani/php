@@ -23,6 +23,25 @@
             </div>
         </form>
 
+        <?php 
+        if(isset($_POST['addBlogPost'])) {
+            header('Location:addnewblogpost.php');
+        }
+        
+        if(isset($_POST['mangeCategory'])) {
+            header('Location: blogcategory.php');
+        }
+
+        if(isset($_POST['myProfile'])) {
+            header('Location: register.php');
+        }
+
+        if(isset($_POST['logOut'])) {
+            session_destroy();
+            header('Location: login.php');
+        }
+        
+        ?>
 
         <form method='GET'>
             <?php
@@ -52,20 +71,7 @@
         
         ?>
         </form>
-        <?php 
-        if(isset($_POST['addBlogPost'])) {
-            header('Location: addnewblogpost.php');
-        }
         
-        if(isset($_POST['mangeCategory'])) {
-            header('Location: blogcategory.php');
-        }
-
-        if(isset($_POST['myProfile'])) {
-            header('Location: register.php');
-        }
-        
-        ?>
         
     </body>
 </html>

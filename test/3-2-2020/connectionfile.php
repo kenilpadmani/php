@@ -27,13 +27,13 @@ function insertdata($tableName, $data) {
     return $insertQuery."<br>";
 }
 
-function lastId($fieldName, $tableName) {
-    $query = "SELECT MAX($fieldName) from $tableName";
-    if($result = mysqli_query(openConnection(), $query)) {
-        $rows = mysqli_fetch_assoc($result);
-        return $rows;
-    }
-}
+// function lastId($fieldName, $tableName) {
+//     $query = "SELECT MAX($fieldName) from $tableName";
+//     if($result = mysqli_query(openConnection(), $query)) {
+//         $rows = mysqli_fetch_assoc($result);
+//         return $rows;
+//     }
+// }
 
 function updateData($id, $tableName, $data) {
     $tempData = "";
@@ -59,8 +59,28 @@ function deleteData($id, $tableName) {
     }
 }
 
+function deleteDataForParentCategory($id, $tableName) {
+    $deleteQuery = "DELETE FROM $tableName WHERE ParentCategoryId = '$id'";
+    if (mysqli_query(openConnection(), $deleteQuery)) {
+        return true;
+        echo "delete successfully";
+    } else {
+        echo "error for delete data";
+    }
+}
+
+function deleteDataForCategory($id, $tableName) {
+    $deleteQuery = "DELETE FROM $tableName WHERE categoryid = '$id'";
+    if (mysqli_query(openConnection(), $deleteQuery)) {
+        echo "delete successfully";
+    } else {
+        echo "error for delete data";
+    }
+}
+
 function displayDataForcategory() {
-    echo $query = "SELECT ca.categoryid,c.categoryName,ca.CreatedAt FROM category ca JOIN parentcategory c";
+    $query = "SELECT ca.categoryid,c.categoryName,ca.Image,ca.CreatedAt FROM category ca JOIN parentcategory c 
+                    WHERE ca.ParentCategoryId = c.ParentCategoryId";
     if ($result = mysqli_query(openConnection(), $query)) {
         return $result;
     } else {
@@ -70,7 +90,8 @@ function displayDataForcategory() {
 
 
 function displayDataForblogpost() {
-    $query = "SELECT p.blogid,c.categoryName,p.Title,p.PublishedAt FROM blogpost p JOIN parentcategory c";
+    $query = "SELECT p.blogid,c.categoryName,p.Title,p.PublishedAt FROM blogpost p JOIN parentcategory c 
+                ON p.blogid = c.ParentCategoryId";
     if ($result = mysqli_query(openConnection(), $query)) {
         return $result;
     } else {
@@ -79,24 +100,19 @@ function displayDataForblogpost() {
 
 }
 
-function fileuploading() {
-        $fileName = $_FILES['Image']['name'];
+function fileuploading($image, $folderName) {
+        $fileName = $image['name'];
         $fileExtension = substr($fileName, strpos($fileName, '.')+1);
         $fileExtensionLower = strtolower($fileExtension);
         $extensionArray = ['jpeg', 'jpg', 'png'];
-        $tempName = $_FILES['file']['tmp_name'];
-        echo "File name : ".$fileName."<br>";
-        echo "Temp file name : ".$tempName."<br>";
+        $tempName = $image['tmp_name'];
         if (isset($fileName)) {
             if (!empty($fileName)) {
                 if(in_array($fileExtensionLower, $extensionArray)) {
-                    $location = 'files/';
+                    $location = $folderName;
                     if (move_uploaded_file($tempName, $location.$fileName)) {
-                        return true;
+                        return $location.$fileName;
                         echo "upload successfully";
-                    } else {
-                        return false;
-                        echo "Not Upload";
                     }
                 }
             } else {
@@ -106,5 +122,16 @@ function fileuploading() {
             echo "please the fill";
         }
     }
+
+    function fetchCategoryName() {
+        $select = "SELECT categoryName FROM parentcategory";
+        $result = mysqli_query(openConnection(), $select);
+        while($rows = mysqli_fetch_assoc($result)) {
+        echo "<option value= $rows[categoryName]>".$rows['categoryName'];
+        echo "</option>";
+        }
+    } 
+
+
 
 ?>

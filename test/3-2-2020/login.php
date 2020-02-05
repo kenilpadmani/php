@@ -43,7 +43,7 @@
             $flag = 0;
             while($rows = mysqli_fetch_assoc($result)) {
                 if(($rows['Email'] == $_POST['loginEmail']) && ($rows['PasswordHash'] == $_POST['loginPassword'])) {
-                    $_SESSION['loginId'] = $rows['id'];
+                    echo $_SESSION['loginId'] = $rows['id'];
                     $flag = 1;
                 }
             }
@@ -52,9 +52,10 @@
         
         if(isset($_POST['login'])) {
             if(validation()){
-                echo $loginTime = date("h:i:s");
-                echo $insertQuery = "insert into user(LastLoginAt) values('$loginTime')";
-                if(mysqli_query(openConnection(), $insertQuery)) {
+                $loginTime = date("h:i:s", time());
+                $_SESSION['lastlogin'] = date("h:i:s", time());
+                $updateQuery = "UPDATE user SET LastLoginAt = '$loginTime' where id = '$_SESSION[loginId]'";
+                if(mysqli_query(openConnection(), $updateQuery)) {
                     echo "insert row successfully";
                 } else {
                     echo "error";
