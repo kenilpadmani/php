@@ -16,20 +16,20 @@
                 </legend>
                 <div>
                     <label>Title</label>
-                    <input type="text" name="addnewcategory[Title]" value="<?php echo getValue('addnewcategory', 'Title')?>">
+                    <input type="text" name="addnewcategory[Title]" value="<?php echo getValueForDatabase('Title', 'category', 'categoryid')?>">
                 </div>
                 <div>
                     <label>Content</label>
-                    <textarea rows="5" cols="15" name="addnewcategory[Content]" 
-                    value="<?php echo getValue('addnewcategory', 'Content')?>"></textarea>
+                    <textarea rows="5" cols="15" name="addnewcategory[Content]"> 
+                     <?php echo getValueForDatabase('Content', 'category', 'categoryid')?></textarea>
                 </div>
                 <div>
                     <label>URL</label>
-                    <input type="text" name="addnewcategory[Url]"  value="<?php echo getValue('addnewcategory', 'Url')?>">
+                    <input type="text" name="addnewcategory[Url]"  value="<?php echo getValueForDatabase('Url', 'category', 'categoryid')?>">
                 </div>
                 <div>
                     <label>Meta Title</label>
-                    <input type="text" name="addnewcategory[MetaTitle]" value="<?php echo getValue('addnewcategory', 'MetaTitle')?>">
+                    <input type="text" name="addnewcategory[MetaTitle]" value="<?php echo getValueForDatabase('MetaTitle', 'category', 'categoryid')?>">
                 </div>
                 <div>
                     <label>Parent Category</label>
@@ -45,12 +45,12 @@
                 </div>
                 <div>
                     <label>Image</label>
-                    <input type="file" name="image" value="<?php echo fileuploading($_FILES['image'], 'files/')?>">
+                    <input type="file" name="image" value="<?php echo getValueForDatabase('image', 'category', 'categoryid')?>">
                 </div>
                 <input type="submit" name="submit">
+                <input type="submit" name="update" value="update">
             </fieldset>
         </form> 
-
         
     </body>
 </html>

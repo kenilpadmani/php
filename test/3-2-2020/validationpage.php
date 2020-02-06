@@ -1,10 +1,12 @@
 <?php
 
-session_start();
+
 
 require_once "connectionfile.php";
 
-
+// function check($fieldName, $tableName) {
+//     return isset($_GET['edit']) ? "" : getValueForDatabase($fieldName, $tableName);
+// }
 
 function getValue($section, $fieldname) {
     return isset($_POST[$section][$fieldname]) ? $_POST[$section][$fieldname] : "";
@@ -90,6 +92,10 @@ function dataSameAsSqlStroe($section) {
                 }
             }
             
+            if(isset($_POST['update']) && isset($_SESSION['editId'])) {
+                updateData($_SESSION['editId'], 'category', $data, 'categoryid');
+                header('Location: blogcategory.php');
+            }
             if(isset($_POST['submit'])) {
                 fileuploading($_FILES['image'], 'files/');
                 insertData('category', $data);
@@ -100,7 +106,7 @@ function dataSameAsSqlStroe($section) {
 
             // $array = lastId('id' ,'user');
             // $maxId = $array['MAX(id)'];
-            $data['id'] = $_SESSION['loginId'];
+            $data['userid'] = $_SESSION['loginId'];
             $data['CreatedAt'] = date('D:M:Y h:i:s', time());
             $data['Image'] = fileuploading($_FILES['Imagename'], 'blogimage/');
             foreach($_POST[$section] as $key => $value) {
@@ -119,9 +125,10 @@ function dataSameAsSqlStroe($section) {
                     break;
                 }
             }
-            if(isset($_POST['update']) && isset($_GET['edit'])) {
-                $id = array_search('edit', $_GET['edit']);
-                update($id, 'blogpost', $data);
+            
+            if(isset($_POST['update']) && isset($_SESSION['editId'])) {
+                updateData($_SESSION['editId'], 'blogpost', $data, 'blogid');
+                header('Location: blogpost.php');
             }
             if(isset($_POST['submit'])) {
                 echo fileuploading($_FILES['Imagename'] , 'blogimage/');
@@ -170,23 +177,18 @@ if(isset($_POST['addnewblog'])) {
     dataSameAsSqlStroe('addnewblog');
 }
 
-if(isset($_GET['edit'])) {
-    echo "Hello";
-    $id = array_search('edit', $_GET['edit']);
-    //$selectQuery = "SELECT Title,Content,MetaTitle,Url,Image FORM category WHERE categoryid = '$id'";
-    header('Location: addnewcategory.php');
-    update($id, 'category', $data);
-}
+
+
 
     if(isset($_GET['delete'])) {
         $id = array_search('delete', $_GET['delete']);
         deleteDataForCategory($id, 'category');
-        deleteDataForParentCategory($id, 'parentcategory');
+        // deleteDataForParentCategory($id, 'parentcategory');
     }
     if(isset($_GET['delete'])) {
         $id = array_search('delete', $_GET['delete']);
         deleteData($id, 'blogpost');
-        deleteDataForParentCategory($id, 'parentcategory');
+        // deleteDataForParentCategory($id, 'parentcategory');
     }
 
 ?>

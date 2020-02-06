@@ -16,19 +16,19 @@
                 </legend>
                 <div>
                     <label>Title</label>
-                    <input type="text" name="addnewblog[Title]">
+                    <input type="text" name="addnewblog[Title]" value="<?php echo getValueForDatabase('Title', 'blogpost', 'blogid')?>">
                 </div>
                 <div>
                     <label>Content</label>
-                    <textarea rows="5" cols="15" name="addnewblog[Content]"></textarea>
+                    <textarea rows="5" cols="15" name="addnewblog[Content]"><?php echo getValueForDatabase('Content', 'blogpost', 'blogid')?></textarea>
                 </div>
                 <div>
                     <label>URL</label>
-                    <input type="text" name="addnewblog[Url]">
+                    <input type="text" name="addnewblog[Url]" value="<?php echo getValueForDatabase('Url', 'blogpost', 'blogid')?>">
                 </div>
                 <div>
                     <label>Published At</label>
-                    <input type="date" name="addnewblog[PublishedAt]">
+                    <input type="date" name="addnewblog[PublishedAt]" value="<?php echo getValueForDatabase('PublishedAt', 'blogpost', 'blogid')?>">
                 </div>
                 
                 <div>
@@ -39,20 +39,12 @@
                 </div>
                 <div>
                 <label>Image</label>
-                    <input type="file" name="Imagename">
+                    <input type="file" name="Imagename" value="<?php echo getValueForDatabase('Imagename', 'blogpost', 'blogid')?>">
                 </div>
                     
                 <input type="submit" name="submit">
+                <input type="submit" name="update" value="update">
             </fieldset>
         </form>
-
-
-    <?php 
-    
-    // if(isset($_POST['submit'])) {
-    //     
-    // }
-
-    ?>
     </body>
 </html>

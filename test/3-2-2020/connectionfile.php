@@ -1,5 +1,12 @@
 <?php
 
+
+session_start();
+
+// if(isset($_SESSION['loginId'])) {
+//     header('Location: login.php');
+// }
+
 function openConnection() {
     $servername = 'localhost';
     $username = 'root';
@@ -35,13 +42,13 @@ function insertdata($tableName, $data) {
 //     }
 // }
 
-function updateData($id, $tableName, $data) {
+function updateData($id, $tableName, $data, $tableId) {
     $tempData = "";
     foreach($data as $key => $value) {
         $tempData .= $key. "='" .$value."',";
     }
     $updateData = substr($tempData, 0, strlen($tempData)-1);
-    $updateQuery = "UPDATE $tableName SET $updateData WHERE blogid = '$id'";
+    $updateQuery = "UPDATE $tableName SET $updateData WHERE $tableId = '$id'";
     if (mysqli_query(openConnection(), $updateQuery)) {
         echo "update successfully";
     } else {
@@ -79,8 +86,7 @@ function deleteDataForCategory($id, $tableName) {
 }
 
 function displayDataForcategory() {
-    $query = "SELECT ca.categoryid,c.categoryName,ca.Image,ca.CreatedAt FROM category ca JOIN parentcategory c 
-                    WHERE ca.ParentCategoryId = c.ParentCategoryId";
+    $query = "SELECT ca.categoryid,ca.Title,ca.Image,ca.CreatedAt FROM category ca";
     if ($result = mysqli_query(openConnection(), $query)) {
         return $result;
     } else {
@@ -123,14 +129,24 @@ function fileuploading($image, $folderName) {
         }
     }
 
-    function fetchCategoryName() {
-        $select = "SELECT categoryName FROM parentcategory";
-        $result = mysqli_query(openConnection(), $select);
+function fetchCategoryName() {
+    $select = "SELECT categoryName FROM parentcategory";
+    $result = mysqli_query(openConnection(), $select);
+    while($rows = mysqli_fetch_assoc($result)) {
+    echo "<option value= $rows[categoryName]>".$rows['categoryName'];
+    echo "</option>";
+    }
+}
+
+function getValueForDatabase($fieldName, $tableName, $tableId) {
+    if((isset($_SESSION['loginId'])) && (isset($_SESSION['editId']))) {
+        $selectQuery = "SELECT $fieldName FROM $tableName WHERE $tableId = '$_SESSION[editId]'";
+        $result = mysqli_query(openConnection(), $selectQuery); 
         while($rows = mysqli_fetch_assoc($result)) {
-        echo "<option value= $rows[categoryName]>".$rows['categoryName'];
-        echo "</option>";
+            return $rows[$fieldName];
         }
     } 
+}
 
 
 

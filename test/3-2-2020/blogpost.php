@@ -25,6 +25,7 @@
 
         <?php 
         if(isset($_POST['addBlogPost'])) {
+            unset($_SESSION['editId']);
             header('Location:addnewblogpost.php');
         }
         
@@ -71,7 +72,15 @@
         
         ?>
         </form>
+        <?php
         
+        if(isset($_GET['edit'])) {
+            echo $id = array_search('edit', $_GET['edit']);
+            $_SESSION['editId'] = $id;
+            header('Location: addnewblogpost.php');
+        }
+        
+        ?>
         
     </body>
 </html>

@@ -25,7 +25,6 @@
         </form>
 
         <?php 
-        session_start();
 
         function validation() {
             if($_POST['loginEmail'] && !empty($_POST['loginEmail'])) {
@@ -38,12 +37,12 @@
                    echo "login password invalid format";
                 }
             }
-            $selectQuery = "select id,Email,PasswordHash from user";
+            $selectQuery = "select userid,Email,PasswordHash from user";
             $result = mysqli_query(openConnection(), $selectQuery);
             $flag = 0;
             while($rows = mysqli_fetch_assoc($result)) {
                 if(($rows['Email'] == $_POST['loginEmail']) && ($rows['PasswordHash'] == $_POST['loginPassword'])) {
-                    echo $_SESSION['loginId'] = $rows['id'];
+                    echo $_SESSION['loginId'] = $rows['userid'];
                     $flag = 1;
                 }
             }
@@ -53,8 +52,8 @@
         if(isset($_POST['login'])) {
             if(validation()){
                 $loginTime = date("h:i:s", time());
-                $_SESSION['lastlogin'] = date("h:i:s", time());
-                $updateQuery = "UPDATE user SET LastLoginAt = '$loginTime' where id = '$_SESSION[loginId]'";
+                //$_SESSION['lastlogin'] = date("h:i:s", time());
+                $updateQuery = "UPDATE user SET LastLoginAt = '$loginTime' where userid = '$_SESSION[loginId]'";
                 if(mysqli_query(openConnection(), $updateQuery)) {
                     echo "insert row successfully";
                 } else {

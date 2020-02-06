@@ -26,6 +26,7 @@
 
         <?php 
         if(isset($_POST['addCategory'])) {
+            unset($_SESSION['editId']);
             header('Location: addnewcategory.php');
         }
         if(isset($_POST['myProfile'])) {
@@ -54,7 +55,7 @@
                     echo "<tr>";
                     echo "<td>" . $numberRows['categoryid'] . "</td>";
                     echo "<td> <img src=' $numberRows[Image] ' height='30px' width='40px'    alt='Image not upload'> </td>";
-                    echo "<td>" . $numberRows['categoryName'] . "</td>";
+                    echo "<td>" . $numberRows['Title'] . "</td>";
                     echo "<td>" . $numberRows['CreatedAt'] . "</td>";
                     $buttonId = $numberRows['categoryid'];
                     echo "<td>
@@ -66,7 +67,12 @@
                 echo "</table>";
         ?>
         </form>
-        
-        
+        <?php
+        if(isset($_GET['edit'])) {
+                echo $id = array_search('edit', $_GET['edit']);
+                $_SESSION['editId'] = $id;
+                header('Location: addnewcategory.php');
+            }
+        ?>
     </body>
 </html>
