@@ -46,12 +46,12 @@
                 </div>
                 <div class="data-password">
                     <label>Password</label>
-                    <input type="text" name="register[PasswordHash]"
+                    <input type="password" name="register[PasswordHash]"
                         value="<?php echo getValue('register', 'PasswordHash');?>">
                 </div>
                 <div class="data-confirmpassword">
                     <label>Confirm Password</label>
-                    <input type="text" name="register[confirmpassword]"
+                    <input type="password" name="register[confirmpassword]"
                         value="">
                 </div>
                 <div class="data-information">

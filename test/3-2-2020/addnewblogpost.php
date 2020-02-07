@@ -5,7 +5,6 @@
     <body>
 
     <?php 
-    
     require_once "validationpage.php";
     require_once "connectionfile.php";
     ?>
@@ -16,19 +15,24 @@
                 </legend>
                 <div>
                     <label>Title</label>
-                    <input type="text" name="addnewblog[Title]" value="<?php echo getValueForDatabase('Title', 'blogpost', 'blogid')?>">
+                    <input type="text" name="addnewblog[Title]" 
+                    value="<?php echo getValueForDatabase('Title', 'blogpost', 'blogid')?>">
                 </div>
                 <div>
                     <label>Content</label>
-                    <textarea rows="5" cols="15" name="addnewblog[Content]"><?php echo getValueForDatabase('Content', 'blogpost', 'blogid')?></textarea>
+                    <textarea rows="5" cols="15" name="addnewblog[Content]">
+                    <?php echo getValueForDatabase('Content', 'blogpost', 'blogid')?>
+                    </textarea>
                 </div>
                 <div>
                     <label>URL</label>
-                    <input type="text" name="addnewblog[Url]" value="<?php echo getValueForDatabase('Url', 'blogpost', 'blogid')?>">
+                    <input type="text" name="addnewblog[Url]" 
+                    value="<?php echo getValueForDatabase('Url', 'blogpost', 'blogid')?>">
                 </div>
                 <div>
                     <label>Published At</label>
-                    <input type="date" name="addnewblog[PublishedAt]" value="<?php echo getValueForDatabase('PublishedAt', 'blogpost', 'blogid')?>">
+                    <input type="date" name="addnewblog[PublishedAt]" 
+                    value="<?php echo getValueForDatabase('PublishedAt', 'blogpost', 'blogid')?>">
                 </div>
                 
                 <div>
@@ -39,7 +43,8 @@
                 </div>
                 <div>
                 <label>Image</label>
-                    <input type="file" name="Imagename" value="<?php echo getValueForDatabase('Imagename', 'blogpost', 'blogid')?>">
+                    <input type="file" name="Imagename" 
+                    value="<?php echo getValueForDatabase('Imagename', 'blogpost', 'blogid')?>">
                 </div>
                     
                 <input type="submit" name="submit">

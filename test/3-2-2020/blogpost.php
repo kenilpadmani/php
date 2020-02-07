@@ -3,12 +3,10 @@
         <title>blog post</title>
     </head>
     <body>
-    <?php 
-    
-    require_once "connectionfile.php";
-    require_once "validationpage.php";
-    
-    ?>
+        <?php 
+            require_once "connectionfile.php";
+            require_once "validationpage.php";
+        ?>
         <form method="POST">
             <div>
             <input type="submit" name="mangeCategory" value="Mange category">
@@ -24,24 +22,23 @@
         </form>
 
         <?php 
-        if(isset($_POST['addBlogPost'])) {
-            unset($_SESSION['editId']);
-            header('Location:addnewblogpost.php');
-        }
-        
-        if(isset($_POST['mangeCategory'])) {
-            header('Location: blogcategory.php');
-        }
+            if(isset($_POST['addBlogPost'])) {
+                unset($_SESSION['editId']);
+                header('Location:addnewblogpost.php');
+            }
+            
+            if(isset($_POST['mangeCategory'])) {
+                header('Location: blogcategory.php');
+            }
 
-        if(isset($_POST['myProfile'])) {
-            header('Location: register.php');
-        }
+            if(isset($_POST['myProfile'])) {
+                header('Location: register.php');
+            }
 
-        if(isset($_POST['logOut'])) {
-            session_destroy();
-            header('Location: login.php');
-        }
-        
+            if(isset($_POST['logOut'])) {
+                session_destroy();
+                header('Location: login.php');
+            }
         ?>
 
         <form method='GET'>
@@ -73,14 +70,11 @@
         ?>
         </form>
         <?php
-        
-        if(isset($_GET['edit'])) {
-            echo $id = array_search('edit', $_GET['edit']);
-            $_SESSION['editId'] = $id;
-            header('Location: addnewblogpost.php');
-        }
-        
+            if(isset($_GET['edit'])) {
+                echo $id = array_search('edit', $_GET['edit']);
+                $_SESSION['editId'] = $id;
+                header('Location: addnewblogpost.php');
+            }
         ?>
-        
     </body>
 </html>

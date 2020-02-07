@@ -5,7 +5,6 @@
     <body>
 
     <?php
-
         require_once "connectionfile.php";
         require_once "validationpage.php";
     
