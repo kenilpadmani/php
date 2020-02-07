@@ -21,6 +21,7 @@
         </form>
 
         <?php 
+        session_start();
             function validation() {
                 if($_POST['loginEmail'] && !empty($_POST['loginEmail'])) {
                     if(!preg_match('/^[a-zA-Z-0-9.]+\@[a-zA-Z-0-9.]+\.[a-z]{2,3}$/', $_POST['loginEmail'])) {
@@ -51,10 +52,11 @@
                     $updateQuery = "UPDATE user SET LastLoginAt = '$loginTime' where userid = '$_SESSION[loginId]'";
                     if(mysqli_query(openConnection(), $updateQuery)) {
                         echo "insert row successfully";
+                        header('Location: blogpost.php');
                     } else {
                         echo "error";
                     }
-                    header('Location: blogpost.php');
+                    
                 } else {
                     echo "Email and password is not in database";
                 }
@@ -62,6 +64,7 @@
             
 
             if(isset($_POST['register'])) {
+                unset($_SESSION['loginId']);
                 header('Location: register.php');
             }
         ?>

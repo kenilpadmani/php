@@ -1,3 +1,11 @@
+<?php 
+session_start();
+if(!isset($_SESSION['loginId'])) {
+    header('Location: login.php');
+}
+
+?>
+
 <html>
     <head>
         <title>blog post</title>
@@ -29,7 +37,7 @@
             header('Location: addnewcategory.php');
         }
         if(isset($_POST['myProfile'])) {
-            header('Location: register.php');
+            header('Location: updateregister.php');
         }
 
         if(isset($_POST['logOut'])) {

@@ -1,3 +1,12 @@
+<?php 
+session_start();
+if(!isset($_SESSION['loginId'])) {
+    header('Location: login.php');
+}
+
+?>
+
+
 <html>
     <head>
         <title>add new blog</title>
@@ -18,7 +27,7 @@
                 </div>
                 <div class="data-content">
                     <label>Content</label>
-                    <textarea rows="5" cols="15" name="addnewcategory[Content]"> 
+                    <textarea rows="5" cols="30" name="addnewcategory[Content]"> 
                      <?php echo getValueForDatabase('Content', 'category', 'categoryid')?>
                     </textarea>
                 </div>
@@ -36,12 +45,11 @@
                     <label>Parent Category</label>
                     <?php $categoryData = ['Lifestyle', 'health', 'eduction', 'Music'] ?>
                     <select name="addnewcategory[categoryName]">
-                    <?php $selectd = in_array($value, [getValue('addnewcategory', 'categoryName',[])]) 
+                    <?php foreach($categoryData as $key => $value):?>
+                        <?php $selectd = in_array($value, [getValueForDatabase('categoryName', 'category', 'categoryid',[])]) 
                                     ? 'selected = "selected"'
                                     : "";?>
-                    <?php foreach($categoryData as $key => $value):?>
-                        <option value="<?php echo $value;?>" 
-                        <?php echo $selectd; ?>> <?php echo $value;?></option>
+                        <option value="<?php echo $value;?>"<?php echo $selectd ?> > <?php echo $value;?></option>
                     <?php endforeach?>
                     </select>
                 </div>

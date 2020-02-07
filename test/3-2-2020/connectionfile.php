@@ -1,5 +1,4 @@
 <?php
-    session_start();
     function openConnection() {
         $servername = 'localhost';
         $username = 'root';
@@ -70,8 +69,7 @@
 
 
     function displayDataForblogpost() {
-        $query = "SELECT p.blogid,c.categoryName,p.Title,p.PublishedAt FROM blogpost p JOIN parentcategory c 
-                    ON p.blogid = c.ParentCategoryId";
+        $query = "SELECT p.blogid,p.selectedcategory,p.Title,p.PublishedAt FROM blogpost p where p.userid = '$_SESSION[loginId]'";
         if ($result = mysqli_query(openConnection(), $query)) {
             return $result;
         } else {
@@ -113,13 +111,20 @@
     }
 
     function getValueForDatabase($fieldName, $tableName, $tableId) {
-        if((isset($_SESSION['loginId'])) && (isset($_SESSION['editId']))) {
-            $selectQuery = "SELECT $fieldName FROM $tableName WHERE $tableId = '$_SESSION[editId]'";
+        if($tableName == 'user' && isset($_SESSION['loginId'])){
+            $selectQuery = "SELECT $fieldName FROM $tableName WHERE $tableId = '$_SESSION[loginId]'";
             $result = mysqli_query(openConnection(), $selectQuery); 
             while($rows = mysqli_fetch_assoc($result)) {
-                return $rows[$fieldName];
-            }
-        } 
+            return $rows[$fieldName];
+        }
+        } else if((isset($_SESSION['loginId'])) && (isset($_SESSION['editId']))) {
+                $selectQuery = "SELECT $fieldName FROM $tableName WHERE $tableId = '$_SESSION[editId]'";
+                $result = mysqli_query(openConnection(), $selectQuery); 
+        while($rows = mysqli_fetch_assoc($result)) {
+            return $rows[$fieldName];
+        }
+            } 
+        
     }
 
     

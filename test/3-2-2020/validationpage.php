@@ -1,9 +1,6 @@
 <?php
+   
     require_once "connectionfile.php";
-
-    function getValue($section, $fieldname) {
-        return isset($_POST[$section][$fieldname]) ? $_POST[$section][$fieldname] : "";
-    }
 
     function dataSameAsSqlStroe($section) {
         $errorMessage = [];
@@ -52,6 +49,15 @@
                         echo "Mail already exits";
                     }
                 }
+                if(isset($_POST['update'])) {
+                    if(emailvalidation()) {
+                        updateData($_SESSION['loginId'], 'user', $data, 'userid');
+                        header('Location: login.php');
+                    } else {
+                        echo "Mail already exits";
+                    }
+                    
+                }
             } 
             if($section == 'addnewcategory') {
 
@@ -70,9 +76,10 @@
                             $data[$key] = $value;
                         break;
                         case 'Content':
-                            $data[$key] = $value;
+                            $data[$key] = trim($value);
                         break;
                         case 'categoryName':
+                            $data[$key] = $value;
                             $insertquery = "INSERT INTO parentcategory($key) VALUES('$value')";
                             echo (mysqli_query(openConnection(), $insertquery)) ? "Record enter successfully" : "error";
                         break;
@@ -86,7 +93,7 @@
                 }
                 if(isset($_POST['submit'])) {
                     fileuploading($_FILES['image'], 'files/');
-                    insertData('category', $data);
+                    echo insertData('category', $data);
                     header('Location: blogcategory.php');
                 }
             }
@@ -106,8 +113,12 @@
                         case 'Url':
                             $data[$key] = $value;
                         break;
+                        case 'selectedcategory':
+                            $cat=implode(",",$value);
+                            $data[$key] = $cat;
+                        break;   
                         case 'Content':
-                            $data[$key] = $value;
+                            $data[$key] = trim($value);
                         break;
                     }
                 }
@@ -144,7 +155,6 @@
                 if(preg_match('/^[a-zA-Z-0-9]*\w*[a-zA-Z-0-9]$/', $value)) {
                     echo $_SESSION['conformpassword'] = $value;
                     if($_SESSION['conformpassword'] == $_SESSION['password']) {
-                        echo "password is same";
                         return true;
                     } 
                 } else {

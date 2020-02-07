@@ -1,3 +1,11 @@
+<?php 
+session_start();
+if(!isset($_SESSION['loginId'])) {
+    header('Location: login.php');
+}
+
+?>
+
 <html>
     <head>
         <title>Register</title>
@@ -27,7 +35,7 @@
                 <div class="data-firstname">
                     <label>Firstname</label>
                     <input type="text" name="register[FirstName]" 
-                    value="<?php //echo getValueForDatabase('FirstName', 'user', 'userid');?>">
+                    value="<?php echo getValueForDatabase('FirstName', 'user', 'userid');?>">
                 </div>
                 <div class="data-lastname">
                     <label>Lastname</label>
@@ -63,7 +71,7 @@
                 <div>
                     <input type="checkbox" name="condition">Hereby,I Accept Terms & Conditions
                 </div>
-                <input type="submit" name="submit">
+                <input type="submit" name="update" value="update">
             </fieldset>
         </form>
     </body>

@@ -1,3 +1,11 @@
+<?php 
+session_start();
+if(!isset($_SESSION['loginId'])) {
+    header('Location: login.php');
+}
+
+?>
+
 <html>
     <head>
         <title>add new blog</title>
@@ -20,7 +28,7 @@
                 </div>
                 <div>
                     <label>Content</label>
-                    <textarea rows="5" cols="15" name="addnewblog[Content]">
+                    <textarea rows="5" cols="30" name="addnewblog[Content]">
                     <?php echo getValueForDatabase('Content', 'blogpost', 'blogid')?>
                     </textarea>
                 </div>
@@ -37,8 +45,18 @@
                 
                 <div>
                     <label>Category</label>
-                    <select name="addnewblog[Category]" multiple>
-                    <?php fetchCategoryName();?>
+                    <select name="addnewblog[selectedcategory][]" multiple>
+                    <?php $select = "SELECT categoryName FROM parentcategory";
+                            $result = mysqli_query(openConnection(), $select);
+                            while($rows = mysqli_fetch_assoc($result)) {
+                                $selected = in_array($rows['categoryName'], explode(",",getValueForDatabase('selectedcategory', 'blogpost', 'blogid',[]))) 
+                            ? 'selected = "selected"'
+                            : "";
+                            echo "<option value= '".$rows['categoryName']."'$selected>".$rows['categoryName'];
+                            
+                            echo "</option>";
+                            }
+                            ?>
                     </select>
                 </div>
                 <div>

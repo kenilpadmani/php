@@ -1,3 +1,10 @@
+<?php 
+session_start();
+if(!isset($_SESSION['loginId'])) {
+    header('Location: login.php');
+    exit();
+}
+?>
 <html>
     <head>
         <title>blog post</title>
@@ -32,7 +39,7 @@
             }
 
             if(isset($_POST['myProfile'])) {
-                header('Location: register.php');
+                header('Location: updateregister.php');
             }
 
             if(isset($_POST['logOut'])) {
@@ -55,7 +62,7 @@
                 while($numberRows = mysqli_fetch_assoc($row)) {
                     echo "<tr>";
                     echo "<td>" . $numberRows['blogid'] . "</td>";
-                    echo "<td>" . $numberRows['categoryName'] . "</td>";
+                    echo "<td>" . $numberRows['selectedcategory'] . "</td>";
                     echo "<td>" . $numberRows['Title'] . "</td>";
                     echo "<td>" . $numberRows['PublishedAt'] . "</td>";
                     $buttonId = $numberRows['blogid'];
