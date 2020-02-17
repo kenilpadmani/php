@@ -1,0 +1,43 @@
+[17-Feb-2020 06:28:47 Europe/Berlin] Uncaught ExceptionExceptionwith  MessageNo route matched.
+Stack trace:#0 C:\xampp\htdocs\mvc\public\index.php(50): Core\Router->dispatch('Products')
+#1 {main}
+Thrown inC:\xampp\htdocs\mvc\Core\Router.phpon line63
+[17-Feb-2020 06:42:56 Europe/Berlin] Uncaught ExceptionExceptionwith  MessageNo route matched.
+Stack trace:#0 C:\xampp\htdocs\mvc\public\index.php(50): Core\Router->dispatch('Products')
+#1 {main}
+Thrown inC:\xampp\htdocs\mvc\Core\Router.phpon line63
+[17-Feb-2020 06:42:56 Europe/Berlin] PHP Fatal error:  Uncaught Twig\Error\LoaderError: Unable to find template "404.html" (looked into: ../App/Views). in C:\xampp\htdocs\mvc\vendor\twig\twig\src\Loader\FilesystemLoader.php:227
+Stack trace:
+#0 C:\xampp\htdocs\mvc\vendor\twig\twig\src\Loader\FilesystemLoader.php(131): Twig\Loader\FilesystemLoader->findTemplate('404.html')
+#1 C:\xampp\htdocs\mvc\vendor\twig\twig\src\Environment.php(261): Twig\Loader\FilesystemLoader->getCacheKey('404.html')
+#2 C:\xampp\htdocs\mvc\vendor\twig\twig\src\Environment.php(309): Twig\Environment->getTemplateClass('404.html')
+#3 C:\xampp\htdocs\mvc\vendor\twig\twig\src\Environment.php(277): Twig\Environment->load('404.html')
+#4 C:\xampp\htdocs\mvc\Core\View.php(27): Twig\Environment->render('404.html', Array)
+#5 C:\xampp\htdocs\mvc\Core\Error.php(39): Core\View::renderTemplate('404.html')
+#6 [internal function]: Core\Error::exceptionHandler(Object(Exception))
+#7 {main}
+  thrown in C:\xampp\htdocs\mvc\vendor\twig\twig\src\Loader\FilesystemLoader.php on line 227
+[17-Feb-2020 07:14:04 Europe/Berlin] Uncaught ExceptionExceptionwith  MessageNo route matched.
+Stack trace:#0 C:\xampp\htdocs\mvc\public\index.php(50): Core\Router->dispatch('Products')
+#1 {main}
+Thrown inC:\xampp\htdocs\mvc\Core\Router.phpon line63
+[17-Feb-2020 07:14:30 Europe/Berlin] Uncaught ExceptionExceptionwith  MessageNo route matched.
+Stack trace:#0 C:\xampp\htdocs\mvc\public\index.php(50): Core\Router->dispatch('Products')
+#1 {main}
+Thrown inC:\xampp\htdocs\mvc\Core\Router.phpon line63
+[17-Feb-2020 07:14:31 Europe/Berlin] Uncaught ExceptionExceptionwith  MessageNo route matched.
+Stack trace:#0 C:\xampp\htdocs\mvc\public\index.php(50): Core\Router->dispatch('Products')
+#1 {main}
+Thrown inC:\xampp\htdocs\mvc\Core\Router.phpon line63
+[17-Feb-2020 07:14:32 Europe/Berlin] Uncaught ExceptionExceptionwith  MessageNo route matched.
+Stack trace:#0 C:\xampp\htdocs\mvc\public\index.php(50): Core\Router->dispatch('Products')
+#1 {main}
+Thrown inC:\xampp\htdocs\mvc\Core\Router.phpon line63
+[17-Feb-2020 07:14:59 Europe/Berlin] Uncaught ExceptionExceptionwith  MessageNo route matched.
+Stack trace:#0 C:\xampp\htdocs\mvc\public\index.php(50): Core\Router->dispatch('Products')
+#1 {main}
+Thrown inC:\xampp\htdocs\mvc\Core\Router.phpon line63
+[17-Feb-2020 07:16:40 Europe/Berlin] Uncaught ExceptionExceptionwith  MessageNo route matched.
+Stack trace:#0 C:\xampp\htdocs\mvc\public\index.php(50): Core\Router->dispatch('Products')
+#1 {main}
+Thrown inC:\xampp\htdocs\mvc\Core\Router.phpon line63
