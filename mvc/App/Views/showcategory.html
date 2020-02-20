@@ -1,0 +1,17 @@
+{% extends 'homepage.html' %}
+{% block body %}
+{% for show in showcategoryData %}
+    {% if show.categoryName == id %}
+    <div>
+    <h1>Category Name:{{show.categoryName}}</h1>
+    </div>
+    <div>
+        <img src="http://localhost/mvc/file/{{show.image}}" 
+                    width="100px" height="100px" alt="image not upload">
+    </div>
+    <div>
+    <h1>Description:{{show.description}}</h1>
+    </div>                
+    {% endif %}
+{% endfor %}
+{% endblock %}

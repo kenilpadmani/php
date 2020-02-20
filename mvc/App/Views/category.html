@@ -1,0 +1,33 @@
+{% extends 'dashboard.html' %}
+{% block body %}
+    <form method="post">
+        <h2>Category Page</h2>
+        <input type="submit" name="addCategory" value="Add Category">
+        <table border="1">
+            <tr>
+                <th>categoryid</th>
+                <th>categoryName</th>
+                <th>urlkey</th>
+                <th>image</th>
+                <th>status</th>
+                <th>description</th>
+                <th>Action</th>
+            </tr>
+            {% for post in posts %}
+            <tr>
+                <td>{{post.categoryid}}</td>
+                <td>{{post.categoryName}}</td>
+                <td>{{post.urlkey}}</td>
+                <td><img src="http://localhost/mvc/file/{{post.image}}" 
+                    width="50px" height="50px" alt="image not upload"></td>
+                <td>{{post.status}}</td>
+                <td>{{post.description}}</td>
+                <td>
+                    <a href="/mvc/public/admin/Categories/edit?id={{post.categoryid}}">edit</a>
+                    <a href="/mvc/public/admin/Categories/delete?id={{post.categoryid}}">delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+            </table>
+    </form>
+{% endblock %}

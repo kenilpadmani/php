@@ -1,0 +1,30 @@
+{% extends "dashboard.html" %}
+{% block body %}
+    <form method="post">
+        <h2>Cms Page</h2>
+        <input type="submit" name="addCmsPage" value="Add Cms Pages">
+        <table border="1">
+            <tr>
+                <th>cmsid</th>
+                <th>pagetitle</th>
+                <th>urlkey</th>
+                <th>status</th>
+                <th>content</th>
+                <th>Action</th>
+            </tr>
+            {% for post in posts %}
+            <tr>
+                <td>{{post.cmsid}}</td>
+                <td>{{post.pagetitle}}</td>
+                <td>{{post.urlkey}}</td>
+                <td>{{post.status}}</td>
+                <td>{{post.content}}</td>
+                <td>
+                    <a href="/mvc/public/Admin/cms/Pages/edit?id={{post.cmsid}}">edit</a>
+                    <a href="/mvc/public/Admin/cms/Pages/delete?id={{post.cmsid}}">delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+            </table>
+    </form>
+{% endblock %}

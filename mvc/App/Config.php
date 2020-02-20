@@ -1,12 +1,11 @@
 <?php
-
 namespace App;
 class Config {
-    const DB_HOST = 'localhost';
-    const DB_NAME = 'blogapplication';
-    const DB_USER = 'root';
+    const DB_HOST = "localhost";
+    const DB_NAME = "productapplication";
+    const DB_USER = "root";
     const DB_PASSWORD = '';
-    const SHOW_ERRORS = false;
+    const SHOW_ERRORS = TRUE;
 }
 
 ?>

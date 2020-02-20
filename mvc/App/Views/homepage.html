@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+.dropbtn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #ddd;}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
+</style>
+</head>
+<body>
+{% for post in posts %}
+<div class="dropdown">
+    <button class="dropbtn">{{post.categoryName}}</button>
+    <div class="dropdown-content">
+    {% for categoryfield in categorydata %}
+        {% if categoryfield.parentcategoryid == post.categoryid %}
+            <a href="/mvc/public/category/view?id={{categoryfield.categoryName}}">{{categoryfield.categoryName}}</a>
+        {% endif %}
+    {% endfor %}
+</div>
+    
+</div>
+{% endfor %}
+{% block body %}{% endblock %}
+</body>
+</html>

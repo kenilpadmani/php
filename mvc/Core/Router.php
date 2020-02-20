@@ -1,8 +1,7 @@
 <?php
-
 namespace Core;
-class Router
-{
+
+class Router {
     protected $routes = [];
     protected $params = [];
     public function add($route, $params = []) {
@@ -23,9 +22,11 @@ class Router
             if(preg_match($route, $url, $matches)) {
                 foreach($matches as $key => $match) {
                     if(is_string($key)) {
+                        // echo $key."<br>";
                         $params[$key] = $match;
                     }
                 } 
+                // print_r($params);
                 $this->params = $params;
                 return true;
             }
@@ -38,19 +39,16 @@ class Router
     }
 
     public function dispatch($url) {
-    
         $url = $this->removeQueryStringVariables($url);
+
         if($this->match($url)) {
             $controller = $this->params['controller'];
             $controller = $this->convertToStudlyCaps($controller);
-            //$controller = "App\controllers\\$controller";
             $controller = $this->getNamespace().$controller;
             if (class_exists($controller)) {
                 $contrller_object = new $controller($this->params);
-
                 $action = $this->params['action'];
                 $action = $this->convertToCamelCase($action);
-
                 if(is_callable([$contrller_object, $action])) {
                     $contrller_object->$action();
                 } else {
@@ -86,12 +84,14 @@ class Router
     }
 
     protected function getNamespace() {
-        $namespace = 'App\controllers\\';
-        //print_r($this->params);
+        $namespace = 'App\Controllers\\';
         if(array_key_exists('namespace', $this->params)) {
             $namespace .= $this->params['namespace'].'\\';
         }
         return $namespace;
     }
 }
+
+
+
 ?>

@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %} Edit cms page {% endblock %}
+{% block body %}
+    <form method="POST" enctype="multipart/form-data">
+        <h2>Edit Category</h2>
+        <div>
+            Category Name:<input type="text" name="categoryName" value={{post.categoryName}}>
+        </div>
+        <div>
+            Parent Category :<select name="parentCategory">
+                <option value="0">parent</option>
+                {% for parentCategory in posts %}
+                    {% if parentCategory.categoryid == post.categoryid %}
+                        {% set selected = "selected" %}
+                    {% else %}
+                        {% set selected = "" %}
+                    {% endif %}
+                <option value="{{parentCategory.categoryid}}" {{selected}}>{{parentCategory.categoryName}}</option>
+                {% endfor %}
+                </select>
+        </div>
+        <div>
+            Url Key:<input type="text" name="urlkey" value="{{post.urlkey}}">
+        </div>
+        <div>
+            Image:<input type="file" name="image" value="{{post.image}}">
+        </div>
+        <div>
+            Status:
+            <select name="status">
+                {% if post.status == "Avaiable" %}
+                    {% set selected = "selected" %}
+                {% else  %}
+                    {% set selected = "" %}
+                {% endif %}
+                <option value="Avaiable" {{selected}}>Avaiable</option>
+                {% if post.status == "Not-Avaiable" %}
+                    {% set selected = "selected" %}
+                {% else  %}
+                    {% set selected = "" %}
+                {% endif %}
+                <option value="Not-Avaiable" {{selected}}>Not-Avaiable</option>
+            </select>
+        </div>
+        <div>
+            Description:<textarea name="description" rows="5" cols="20">{{post.description}}</textarea>
+        </div>
+        <input type="submit" name="update" value="update">
+    </form>
+{% endblock %}

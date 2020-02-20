@@ -1,0 +1,60 @@
+
+{% block body %}
+    <form method="POST" enctype="multipart/form-data">
+        <h2>Edit Product Page</h2>
+        <div>
+            Product Name:<input type="text" name="productName" value="{{post.productName}}">
+        </div>
+        <div>
+            Category :
+            <select name="category[]" multiple>
+                {% for category in posts%}
+                {% if category.categoryid in get %}
+                    {% set selected = "selected" %}
+                {% else %}
+                    {% set selected = "" %}
+                {% endif %}
+                <option value="{{category.categoryid}}" {{selected}}>{{category.categoryName}}</option>
+                {% endfor %}
+                </select>
+        </div>
+        <div>
+            Stock Control Unit:<input type="number" name="sku" value="{{post.sku}}">
+        </div>
+        <div>
+            Url Key:<input type="text" name="urlkey" value="{{post.urlkey}}">
+        </div>
+        <div>
+            Image:<input type="file" name="image" value="{{post.image}}">
+        </div>
+        <div>
+            Status:<select name="status">
+                {% if post.status == "Avaiable" %}
+                    {% set selected = "selected" %}
+                {% else  %}
+                    {% set selected = "" %}
+                {% endif %}
+                <option value="Avaiable" {{selected}}>Avaiable</option>
+                {% if post.status == "Not-Avaiable" %}
+                    {% set selected = "selected" %}
+                {% else  %}
+                    {% set selected = "" %}
+                {% endif %}
+                <option value="Not-Avaiable" {{seleted}}>Not-Avaiable</option>
+            </select>
+        </div>
+        <div>
+            Description:<textarea name="description" rows="5" cols="20">{{post.description}}</textarea>
+        </div>
+        <div>
+            Short Description:<textarea name="shortdescription" rows="5" cols="20">{{post.shortdescription}}</textarea>
+        </div>
+        <div>
+            Price:<input type="number" name="price" value="{{post.price}}">
+        </div>
+        <div>
+            Stock:<input type="number" name="stock" value="{{post.stock}}">
+        </div>
+        <input type="submit" name="update" value="update">
+    </form>
+{% endblock %}

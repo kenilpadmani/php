@@ -1,0 +1,44 @@
+
+{% block body %}
+    <form method="POST" enctype="multipart/form-data">
+        <h2>Add Product Page</h2>
+        <div>
+            Product Name:<input type="text" name="productName">
+        </div>
+        <div>
+            Category :<select name="category[]" multiple>
+                {% for category in post%}
+                <option value="{{category.categoryid}}">{{category.categoryName}}</option>
+                {% endfor %}
+                </select>
+        </div>
+        <div>
+            Stock Control Unit:<input type="number" name="sku">
+        </div>
+        <div>
+            Url Key:<input type="text" name="urlkey">
+        </div>
+        <div>
+            Image:<input type="file" name="image">
+        </div>
+        <div>
+            Status:<select name="status">
+                <option value="Avaiable">Avaiable</option>
+                <option value="Not-Avaiable">Not-Avaiable</option>
+            </select>
+        </div>
+        <div>
+            Description:<textarea name="description" rows="5" cols="20"></textarea>
+        </div>
+        <div>
+            Short Description:<textarea name="shortdescription" rows="5" cols="20"></textarea>
+        </div>
+        <div>
+            Price:<input type="number" name="price">
+        </div>
+        <div>
+            Stock:<input type="number" name="stock">
+        </div>
+        <input type="submit" name="submit">
+    </form>
+{% endblock %}

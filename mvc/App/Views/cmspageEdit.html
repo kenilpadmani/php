@@ -1,0 +1,32 @@
+
+{% block body %}
+    <form method="POST">
+        <h2>Edit Cms Page</h2>
+        <div>
+            Page Title:<input type="text" name="pagetitle" value="{{post.pagetitle}}">
+        </div>
+        <div>
+            Url Key:<input type="text" name="urlkey" value="{{post.urlkey}}">
+        </div>
+        <div>
+            Status:<select name="status">
+                {% if post.status == "Avaiable" %}
+                    {% set selected = "selected" %}
+                {% else  %}
+                    {% set selected = "" %}
+                {% endif %}
+                <option value="Avaiable" {{selected}}>Avaiable</option>
+                {% if post.status == "Not-Avaiable" %}
+                    {% set selected = "selected" %}
+                {% else  %}
+                    {% set selected = "" %}
+                {% endif %}
+                <option value="Not-Avaiable" {{selected}}>Not-Avaiable</option>
+            </select>
+        </div>
+        <div>
+            Content:<textarea name="content" rows="5" cols="20">{{post.content}}</textarea>
+        </div>
+        <input type="submit" name="update" value="update">
+    </form>
+{% endblock %}
