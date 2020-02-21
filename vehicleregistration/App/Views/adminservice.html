@@ -1,0 +1,33 @@
+{% block body %}
+    <form method="POST">
+        <table border="1">
+            <tr>
+                <th>Title</th>
+                <th>VehicleNumber</th>
+                <th>License Number</th>
+                <th>Date</th>
+                <th>Timeslot</th>
+                <th>Vehicle issue</th>
+                <th>service center</th>
+                <th>status</th>
+                <th>Action</th>
+            </tr>
+            {% for post in posts %}
+            <tr>
+                <td>{{post.title}}</td>
+                <td>{{post.vehiclenumber}}</td>
+                <td>{{post.licensenumber}}</td>
+                <td>{{post.date}}</td>
+                <td>{{post.timeslot}}</td>
+                <td>{{post.vehicleissue}}</td>
+                <td>{{post.servicecenter}}</td>
+                <td>{{post.status}}</td>
+                <td>
+                    <a href="/vehicleregistration/public/admin/edit?id={{post.serviceid}}">edit</a>
+                    <a href="/vehicleregistration/public/admin/delete?id={{post.serviceid}}">delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+            </table>
+    </form>
+{% endblock %}

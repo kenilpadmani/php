@@ -1,0 +1,47 @@
+{% block body %}
+    <form method="POST">
+        <div>
+            Title:<input type="text" name="title">
+        </div>
+        <div>
+            Vehicle Number:<input type="text" name="vehiclenumber">
+        </div>
+        <div>
+            License Number:<input type="text" name="licensenumber">
+        </div>
+        <div>
+            date:<input type="date" name="date">
+        </div>
+        <div>
+            Time slot:<select name="timeslot">
+                <option value="1">9-10</option>
+                <option value="2">10-11</option>
+                <option value="3">11-12</option>
+                <option value="4">12-1</option>
+                <option value="5">1-2</option>
+                <option value="6">2-3</option>
+                <option value="7">3-4</option>
+                <option value="8">4-5</option>
+                <option value="9">5-6</option>
+            </select>
+        </div>
+        <div>
+            Vehicle issue:<textarea rows="5" cols="20" name="vehicleissue"></textarea>
+        </div>
+        <div>
+            service center:<select name="servicecenter">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                </select>
+        </div>
+        <div>
+            status:<select name="status">
+                <option value="pending">pending</option>
+                <option value="approved">approved</option>
+            </select>
+        </div>
+        <input type="submit" name="submit">
+    </form>
+{% endblock %}
